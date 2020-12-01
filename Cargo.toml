@@ -1,0 +1,213 @@
+[package]
+name = "aoc"
+version = "0.1.0"
+authors = ["Falk Höppner <falk@hoppner.se>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+[lib]
+name = "util"
+path = "util.rs"
+
+[[bin]]
+name = "day1-part1"
+path = "day1/part1.rs"
+
+[[bin]]
+name = "day1-part2"
+path = "day1/part2.rs"
+
+[[bin]]
+name = "day2-part1"
+path = "day2/part1.rs"
+
+[[bin]]
+name = "day2-part2"
+path = "day2/part2.rs"
+
+[[bin]]
+name = "day3-part1"
+path = "day3/part1.rs"
+
+[[bin]]
+name = "day3-part2"
+path = "day3/part2.rs"
+
+[[bin]]
+name = "day4-part1"
+path = "day4/part1.rs"
+
+[[bin]]
+name = "day4-part2"
+path = "day4/part2.rs"
+
+[[bin]]
+name = "day5-part1"
+path = "day5/part1.rs"
+
+[[bin]]
+name = "day5-part2"
+path = "day5/part2.rs"
+
+[[bin]]
+name = "day6-part1"
+path = "day6/part1.rs"
+
+[[bin]]
+name = "day6-part2"
+path = "day6/part2.rs"
+
+[[bin]]
+name = "day7-part1"
+path = "day7/part1.rs"
+
+[[bin]]
+name = "day7-part2"
+path = "day7/part2.rs"
+
+[[bin]]
+name = "day8-part1"
+path = "day8/part1.rs"
+
+[[bin]]
+name = "day8-part2"
+path = "day8/part2.rs"
+
+[[bin]]
+name = "day9-part1"
+path = "day9/part1.rs"
+
+[[bin]]
+name = "day9-part2"
+path = "day9/part2.rs"
+
+[[bin]]
+name = "day10-part1"
+path = "day10/part1.rs"
+
+[[bin]]
+name = "day10-part2"
+path = "day10/part2.rs"
+
+[[bin]]
+name = "day11-part1"
+path = "day11/part1.rs"
+
+[[bin]]
+name = "day11-part2"
+path = "day11/part2.rs"
+
+[[bin]]
+name = "day12-part1"
+path = "day12/part1.rs"
+
+[[bin]]
+name = "day12-part2"
+path = "day12/part2.rs"
+
+[[bin]]
+name = "day13-part1"
+path = "day13/part1.rs"
+
+[[bin]]
+name = "day13-part2"
+path = "day13/part2.rs"
+
+[[bin]]
+name = "day14-part1"
+path = "day14/part1.rs"
+
+[[bin]]
+name = "day14-part2"
+path = "day14/part2.rs"
+
+[[bin]]
+name = "day15-part1"
+path = "day15/part1.rs"
+
+[[bin]]
+name = "day15-part2"
+path = "day15/part2.rs"
+
+[[bin]]
+name = "day16-part1"
+path = "day16/part1.rs"
+
+[[bin]]
+name = "day16-part2"
+path = "day16/part2.rs"
+
+[[bin]]
+name = "day17-part1"
+path = "day17/part1.rs"
+
+[[bin]]
+name = "day17-part2"
+path = "day17/part2.rs"
+
+[[bin]]
+name = "day18-part1"
+path = "day18/part1.rs"
+
+[[bin]]
+name = "day18-part2"
+path = "day18/part2.rs"
+
+[[bin]]
+name = "day19-part1"
+path = "day19/part1.rs"
+
+[[bin]]
+name = "day19-part2"
+path = "day19/part2.rs"
+
+[[bin]]
+name = "day20-part1"
+path = "day20/part1.rs"
+
+[[bin]]
+name = "day20-part2"
+path = "day20/part2.rs"
+
+[[bin]]
+name = "day21-part1"
+path = "day21/part1.rs"
+
+[[bin]]
+name = "day21-part2"
+path = "day21/part2.rs"
+
+[[bin]]
+name = "day22-part1"
+path = "day22/part1.rs"
+
+[[bin]]
+name = "day22-part2"
+path = "day22/part2.rs"
+
+[[bin]]
+name = "day23-part1"
+path = "day23/part1.rs"
+
+[[bin]]
+name = "day23-part2"
+path = "day23/part2.rs"
+
+[[bin]]
+name = "day24-part1"
+path = "day24/part1.rs"
+
+[[bin]]
+name = "day24-part2"
+path = "day24/part2.rs"
+
+[[bin]]
+name = "day25-part1"
+path = "day25/part1.rs"
+
+[[bin]]
+name = "day25-part2"
+path = "day25/part2.rs"
