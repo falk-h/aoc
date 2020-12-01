@@ -4,11 +4,14 @@ const DAY: u8 = 1;
 
 fn main() {
     let mut nums = input::lines::<usize>(DAY);
+    let timer = util::Timer::new();
     nums.sort();
     for n in &nums {
         if let Some((hi, lo)) = find(2020 - n, &nums) {
             if let Ok(_) = nums.binary_search(&n) {
+                timer.print();
                 println!("{} * {} * {} = {}", n, hi, lo, n * hi * lo);
+                break;
             }
         }
     }

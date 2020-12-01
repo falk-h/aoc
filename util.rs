@@ -1,3 +1,37 @@
+use std::time::{Duration, Instant};
+
+pub struct Timer {
+    start: Instant,
+}
+
+impl Timer {
+    pub fn new() -> Self {
+        Timer {
+            start: Instant::now(),
+        }
+    }
+
+    pub fn print(self) {
+        let time = self.start.elapsed();
+        print!("Time: ");
+        match (
+            time.as_secs(),
+            time.as_millis(),
+            time.as_micros(),
+            time.as_nanos(),
+        ) {
+            (0, 0, 0, ns) => println!("{} ns", ns),
+            (0, 0, us, ns) => println!("{}.{} µs", us, ns - 1000 * us),
+            (0, ms, us, _) => println!("{}.{} ms", ms, us - 1000 * ms),
+            (s, ms, _, _) => println!("{}.{} s", s, ms as u64 - 1000 * s),
+        }
+    }
+
+    pub fn elapsed(self) -> Duration {
+        self.start.elapsed()
+    }
+}
+
 pub mod input {
     use std::fs;
     use std::str;
