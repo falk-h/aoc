@@ -8,6 +8,8 @@ edition = "2018"
 
 [profile.dev]
 opt-level = 3
+
+[profile.release]
 lto = true
 
 [dependencies]
