@@ -8,4 +8,4 @@ fi
 day="$1"
 part="$2"
 shift 2
-exec cargo run "$@" --bin "day$day-part$part"
+exec cargo run "$@" --bin "day$day-part$part" "inputs/day$day.txt"

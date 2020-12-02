@@ -1,9 +1,7 @@
-use util::input;
+use util::*;
 
-const DAY: u8 = 1;
-
-fn main() {
-    let mut nums = input::lines::<usize>(DAY);
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut nums = input::lines::<usize>(&std::env::args().nth(1).unwrap());
     nums.sort();
     let mut hi = nums.len() - 1;
     let mut lo = 0;
@@ -15,4 +13,5 @@ fn main() {
         }
     }
     println!("{}", nums[hi] * nums[lo]);
+    Ok(())
 }

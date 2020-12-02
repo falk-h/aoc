@@ -1,7 +1,5 @@
 use util::*;
 
-const DAY: u8 = 2;
-
 parseable_struct! {
     Password = "{}-{} {}: {}" {
         from: usize = "[0-9]+",
@@ -11,8 +9,8 @@ parseable_struct! {
     }
 }
 
-fn main() {
-    let input = input::lines::<Password>(DAY);
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let input = input::lines::<Password>(&std::env::args().nth(1).unwrap());
     let timer = Timer::new();
     let count = input
         .iter()
@@ -23,4 +21,5 @@ fn main() {
         .count();
     timer.print();
     println!("{}", count);
+    Ok(())
 }

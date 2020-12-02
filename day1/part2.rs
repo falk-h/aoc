@@ -1,9 +1,7 @@
-use util::input;
+use util::*;
 
-const DAY: u8 = 1;
-
-fn main() {
-    let mut nums = input::lines::<usize>(DAY);
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut nums = input::lines::<usize>(&std::env::args().nth(1).unwrap());
     let timer = util::Timer::new();
     nums.sort();
     for n in &nums {
@@ -15,6 +13,7 @@ fn main() {
             }
         }
     }
+    return Ok(());
 }
 
 fn find(target: usize, nums: &Vec<usize>) -> Option<(usize, usize)> {
