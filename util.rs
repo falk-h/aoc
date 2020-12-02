@@ -94,9 +94,7 @@ pub mod input {
     {
         line(day)
             .split_terminator('\n')
-            .map(|l| {
-                to_vec(l.to_string(), separator)
-            })
+            .map(|l| to_vec(l.to_string(), separator))
             .collect()
     }
 }
