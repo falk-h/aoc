@@ -1,41 +1,25 @@
-use regex::Regex;
-use util::input;
+use util::*;
 
 const DAY: u8 = 2;
 
-struct Requirement {
-    from: usize,
-    to: usize,
-    character: char,
+parseable_struct! {Password,
+    "{}-{} {}: {}",
+    from: usize = "[0-9]+",
+    to: usize = "[0-9]+",
+    character: char = "[a-z]",
+    pass: String = "[a-z]+",
 }
 
 fn main() {
-    let input = input::lines(DAY);
-    let timer = util::Timer::new();
-    let count = parse(input).iter().filter(|(req, pass)| validate(req, pass)).count();
+    let input = input::lines::<Password>(DAY);
+    let timer = Timer::new();
+    let count = input
+        .iter()
+        .filter(|pass| {
+            let count = pass.pass.chars().filter(|&c| c == pass.character).count();
+            pass.from <= count && count <= pass.to
+        })
+        .count();
     timer.print();
     println!("{}", count);
-}
-
-fn validate(req: &Requirement, pass: &str) -> bool {
-    let count = pass.chars().filter(|&c| c == req.character).count();
-    req.from <= count && count <= req.to
-}
-
-fn parse<'a>(input: Vec<String>) -> Vec<(Requirement, String)> {
-    let re: Regex = Regex::new(r"^(?P<from>[0-9]+)-(?P<to>[0-9]+) (?P<character>[a-z]): (?P<pass>[a-z]+)$").unwrap();
-    input
-        .iter()
-        .map(|s| {
-            let cap = re.captures(s).unwrap();
-            (
-                Requirement {
-                    from: cap["from"].parse().unwrap(),
-                    to: cap["to"].parse().unwrap(),
-                    character: cap["character"].parse().unwrap(),
-                },
-                cap["pass"].to_owned(),
-            )
-        })
-        .collect()
 }

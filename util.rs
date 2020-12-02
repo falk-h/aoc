@@ -4,22 +4,49 @@ pub struct Timer {
     start: Instant,
 }
 
+pub trait Parse {
+    const PATTERN: &'static str;
+}
+
+#[macro_export]
+macro_rules! parseable_struct {
+    {$name:ident, $pattern:literal, $($field:ident: $type:ty = $fieldpat:literal),+,} => {
+        #[allow(dead_code)]
+        struct $name {
+            $(
+                $field: $type,
+            )+
+        }
+
+        impl std::str::FromStr for $name {
+            type Err = Box<dyn std::error::Error>;
+            fn from_str(s: &str) -> Result<Self, Self::Err> {
+                lazy_static::lazy_static! {
+                    static ref RE: regex::Regex = regex::Regex::new(&format!(
+                        $pattern
+                        $(, format!("(?P<{}>{})", stringify!($field), $fieldpat))+
+                    )).unwrap();
+                }
+                let cap = RE.captures(s).unwrap();
+                Ok($name {
+                    $(
+                        $field: cap[std::stringify!($field)].parse()?,
+                    )+
+                })
+            }
+        }
+    };
+}
+
 impl Timer {
     pub fn new() -> Self {
-        Timer {
-            start: Instant::now(),
-        }
+        Timer { start: Instant::now() }
     }
 
     pub fn print(self) {
         let time = self.start.elapsed();
         print!("Time: ");
-        match (
-            time.as_secs(),
-            time.as_millis(),
-            time.as_micros(),
-            time.as_nanos(),
-        ) {
+        match (time.as_secs(), time.as_millis(), time.as_micros(), time.as_nanos()) {
             (0, 0, 0, ns) => println!("{} ns", ns),
             (0, 0, us, ns) => println!("{}.{} µs", us, ns - 1000 * us),
             (0, ms, us, _) => println!("{}.{} ms", ms, us - 1000 * ms),
@@ -37,10 +64,7 @@ pub mod input {
     use std::str;
 
     pub fn line(day: u8) -> String {
-        fs::read_to_string(format!("inputs/day{}.txt", day))
-            .unwrap()
-            .trim()
-            .to_string()
+        fs::read_to_string(format!("inputs/day{}.txt", day)).unwrap().trim().to_string()
     }
 
     pub fn into<T>(day: u8) -> T
@@ -80,11 +104,7 @@ pub mod input {
         T: str::FromStr,
         <T as str::FromStr>::Err: std::fmt::Debug,
     {
-        string
-            .split(separator)
-            .filter(|s| s != &"")
-            .map(|s| s.parse().unwrap())
-            .collect()
+        string.split(separator).filter(|s| s != &"").map(|s| s.parse().unwrap()).collect()
     }
 
     pub fn matrix<T>(day: u8, separator: &str) -> Vec<Vec<T>>
@@ -92,9 +112,6 @@ pub mod input {
         T: str::FromStr,
         <T as str::FromStr>::Err: std::fmt::Debug,
     {
-        line(day)
-            .split_terminator('\n')
-            .map(|l| to_vec(l.to_string(), separator))
-            .collect()
+        line(day).split_terminator('\n').map(|l| to_vec(l.to_string(), separator)).collect()
     }
 }
