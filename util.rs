@@ -4,14 +4,31 @@ pub struct Timer {
     start: Instant,
 }
 
-pub trait Parse {
-    const PATTERN: &'static str;
+#[macro_export]
+macro_rules! expand_pattern {
+    {($pattern:literal, $separator:literal), $field:ident} => {
+        format!("(?P<{}>({}{})*({})*)", stringify!($field), $pattern, $separator, $pattern)
+    };
+    {$pattern:literal, $field:ident} => {
+        format!("(?P<{}>{})", stringify!($field), $pattern)
+    };
+}
+
+#[macro_export]
+macro_rules! parse_field {
+    {$str:expr, ($pattern:literal, $separator:literal)} => {
+        $str.split_terminator($separator).map(|s| s.parse().unwrap()).collect()
+    };
+    {$str:expr, $pattern:literal} => {
+        $str.parse()?
+    };
 }
 
 #[macro_export]
 macro_rules! parseable_struct {
-    {$name:ident, $pattern:literal, $($field:ident: $type:ty = $fieldpat:literal),+,} => {
+    {$name:ident = $pattern:literal {$($field:ident: $type:ty = $fieldpat:tt),+,}} => {
         #[allow(dead_code)]
+        #[derive(Debug)]
         struct $name {
             $(
                 $field: $type,
@@ -24,13 +41,15 @@ macro_rules! parseable_struct {
                 lazy_static::lazy_static! {
                     static ref RE: regex::Regex = regex::Regex::new(&format!(
                         $pattern
-                        $(, format!("(?P<{}>{})", stringify!($field), $fieldpat))+
+                        $(, expand_pattern!($fieldpat, $field))+
                     )).unwrap();
                 }
                 let cap = RE.captures(s).unwrap();
                 Ok($name {
                     $(
-                        $field: cap[std::stringify!($field)].parse()?,
+                        $field: {
+                            parse_field!(&cap[stringify!($field)], $fieldpat)
+                        },
                     )+
                 })
             }

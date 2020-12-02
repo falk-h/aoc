@@ -2,12 +2,13 @@ use util::*;
 
 const DAY: u8 = 2;
 
-parseable_struct! {Password,
-    "{}-{} {}: {}",
-    from: usize = "[0-9]+",
-    to: usize = "[0-9]+",
-    character: char = "[a-z]",
-    pass: String = "[a-z]+",
+parseable_struct! {
+    Password = "{}-{} {}: {}" {
+        from: usize = "[0-9]+",
+        to: usize = "[0-9]+",
+        character: char = "[a-z]",
+        pass: String = "[a-z]+",
+    }
 }
 
 fn main() {
