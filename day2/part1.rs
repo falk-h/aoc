@@ -10,10 +10,9 @@ struct Requirement {
 }
 
 fn main() {
-    let input = input::line(DAY);
+    let input = input::lines(DAY);
     let timer = util::Timer::new();
-    let parsed = parse(&input);
-    let count = parsed.iter().filter(|(req, pass)| validate(req, pass)).count();
+    let count = parse(input).iter().filter(|(req, pass)| validate(req, pass)).count();
     timer.print();
     println!("{}", count);
 }
@@ -23,10 +22,12 @@ fn validate(req: &Requirement, pass: &str) -> bool {
     req.from <= count && count <= req.to
 }
 
-fn parse<'a>(input: &'a String) -> Vec<(Requirement, String)> {
-    let re = Regex::new(r"(?P<from>\d+)-(?P<to>\d+) (?P<character>[a-z]): (?P<pass>[a-z]+)").unwrap();
-    re.captures_iter(&input)
-        .map(move |cap| {
+fn parse<'a>(input: Vec<String>) -> Vec<(Requirement, String)> {
+    let re: Regex = Regex::new(r"^(?P<from>[0-9]+)-(?P<to>[0-9]+) (?P<character>[a-z]): (?P<pass>[a-z]+)$").unwrap();
+    input
+        .iter()
+        .map(|s| {
+            let cap = re.captures(s).unwrap();
             (
                 Requirement {
                     from: cap["from"].parse().unwrap(),
