@@ -15,6 +15,7 @@ lto = true
 [dependencies]
 regex = { version = "1.4", default-features = false, features = ["perf", "std"] }
 lazy_static = "1.4"
+anyhow = "1.0"
 
 [lib]
 name = "util"
