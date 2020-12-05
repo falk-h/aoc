@@ -6,11 +6,7 @@ fn main() {
         .split('\n')
         .map(|s| {
             s.chars().enumerate().fold(0, |a, (n, c)| {
-                if c == 'B' || c == 'R' {
-                    a | 1 << (s.len() - 1 - n)
-                } else {
-                    a
-                }
+                a | ((c == 'B' || c == 'R') as u16) << s.len() - 1 - n
             })
         })
         .max()
