@@ -1,16 +1,15 @@
-use regex::Regex;
-use util::*;
 use lazy_static::lazy_static;
+use regex::Regex;
 use std::collections::HashMap;
+use util::*;
 
-lazy_static!{
-    static ref RE: Regex = Regex::new(r"(?P<color>[a-z]+ [a-z]+) bags contain (?P<children>([0-9]+ [a-z]+ [a-z]+ bags?(, )?)*).").unwrap();
-    static ref RE_CHILDREN: Regex = Regex::new(r"(?P<count>[0-9]+) (?P<color>[a-z]+ [a-z]+) bags?").unwrap();
-}
-
-#[derive(Debug)]
-struct Bag {
-    contains: Vec<(u32, String)>,
+lazy_static! {
+    static ref RE: Regex = Regex::new(
+        r"(?P<color>[a-z]+ [a-z]+) bags contain (?P<children>([0-9]+ [a-z]+ [a-z]+ bags?(, )?)*)."
+    )
+    .unwrap();
+    static ref RE_CHILDREN: Regex =
+        Regex::new(r"(?P<count>[0-9]+) (?P<color>[a-z]+ [a-z]+) bags?").unwrap();
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
