@@ -6,14 +6,14 @@ pub enum ParseError {
     UnknownInstruction,
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone)]
 pub struct Computer {
     pub memory: Vec<Instruction>,
     pub pc: usize,
     pub acc: isize,
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone)]
 pub enum Instruction {
     Nop(isize),
     Acc(isize),
@@ -70,10 +70,10 @@ impl Computer {
             Instruction::Acc(n) => {
                 self.pc += 1;
                 self.acc += n;
-            },
+            }
             Instruction::Jmp(n) => {
                 self.add_to_pc(n);
-            },
+            }
         }
     }
 
@@ -113,4 +113,3 @@ impl Computer {
         }
     }
 }
-

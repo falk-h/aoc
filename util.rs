@@ -59,13 +59,20 @@ macro_rules! parseable_struct {
 
 impl Timer {
     pub fn new() -> Self {
-        Timer { start: Instant::now() }
+        Timer {
+            start: Instant::now(),
+        }
     }
 
     pub fn print(self) {
         let time = self.start.elapsed();
         print!("Time: ");
-        match (time.as_secs(), time.as_millis(), time.as_micros(), time.as_nanos()) {
+        match (
+            time.as_secs(),
+            time.as_millis(),
+            time.as_micros(),
+            time.as_nanos(),
+        ) {
             (0, 0, 0, ns) => println!("{} ns", ns),
             (0, 0, us, ns) => println!("{}.{} µs", us, ns - 1000 * us),
             (0, ms, us, _) => println!("{}.{} ms", ms, us - 1000 * ms),
@@ -123,7 +130,11 @@ pub mod input {
         T: str::FromStr,
         <T as str::FromStr>::Err: std::fmt::Debug,
     {
-        string.split(separator).filter(|s| s != &"").map(|s| s.parse().unwrap()).collect()
+        string
+            .split(separator)
+            .filter(|s| s != &"")
+            .map(|s| s.parse().unwrap())
+            .collect()
     }
 
     pub fn matrix<T>(file: &str, separator: &str) -> Vec<Vec<T>>
@@ -131,6 +142,9 @@ pub mod input {
         T: str::FromStr,
         <T as str::FromStr>::Err: std::fmt::Debug,
     {
-        line(file).split_terminator('\n').map(|l| to_vec(l.to_string(), separator)).collect()
+        line(file)
+            .split_terminator('\n')
+            .map(|l| to_vec(l.to_string(), separator))
+            .collect()
     }
 }
