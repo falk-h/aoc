@@ -17,6 +17,7 @@ regex = { version = "1.4", default-features = false, features = ["perf", "std"] 
 lazy_static = "1.4"
 anyhow = "1.0"
 itertools = "0.9"
+ndarray = "0.14"
 
 [lib]
 name = "util"
